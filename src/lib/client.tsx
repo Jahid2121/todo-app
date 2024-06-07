@@ -1,3 +1,4 @@
+// src/lib/client.tsx
 "use client";
 import { HttpLink, SuspenseCache, ApolloLink } from "@apollo/client";
 import {
