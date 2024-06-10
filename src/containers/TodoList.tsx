@@ -5,6 +5,7 @@ interface ListTodo {
   deleteTodoItem: any;
 }
 function TodoList({ todos, editTodoItem, deleteTodoItem }: ListTodo) {
+  console.log(todos);
   return (
     <div className="todoListContainer">
       <div className="todosText">Todos</div>

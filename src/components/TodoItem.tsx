@@ -7,7 +7,7 @@ interface ItemTodo {
     return (
       <>
         <div className="todoItem">
-          <div>{todo.attributes.todoText}</div>
+          <div>{todo.attributes.TodoText}</div>
           <div>
             <i>
               <button className="bg-default" onClick={() => editTodoItem(todo)}>
