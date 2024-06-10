@@ -1,4 +1,3 @@
-"use client"
 import { useState } from "react";
 function AddTodo({ addTodo }: { addTodo: FunctionStringCallback }) {
   const [todo, setTodo] = useState<string>("");

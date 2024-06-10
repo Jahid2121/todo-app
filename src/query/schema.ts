@@ -1,16 +1,14 @@
 import { gql } from "@apollo/client";
-
-
-export const GETQUERY = gql`
-    {
-        todos(sort: "id:desc") {
-            data: {
-                id 
-                attributes {
-                    todoText
-                    createdAt
-                }
-            }
-        }
+export const GET_QUERY = gql`
+query todoQuery {
+  todos {
+    data {
+      id
+      attributes {
+        TodoText
+         createdAt
+      }
     }
-`
+  }
+}
+`;
