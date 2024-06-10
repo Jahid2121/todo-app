@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import AddTodo from "@/containers/AddTodo";
 import TodoList from "@/containers/TodoList";
-import { useQuery } from "@apollo/client";
-import { GET_QUERY } from "@/query/schema";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_MUT, GET_QUERY } from "@/query/schema";
 
 export default function Home() {
   const [todos, setTodos] = useState<[]>([]);
-  console.log(todos);
+  const [createTodo] = useMutation(ADD_MUT)
   const { loading, error, data } = useQuery(GET_QUERY, {
     fetchPolicy: "no-cache",
   }); //Fetching all todos
@@ -18,7 +18,20 @@ export default function Home() {
 
 
 
-  const addTodo = async (todoText: string) => {};
+
+
+  const addTodo = async (TodoText: string) => {
+    await createTodo({
+      // creating a new todo 
+      variables: {
+        TodoText: TodoText
+      },
+    }).then(({data}: any) => {
+      setTodos([...todos, data?.createTodo?.data] as any)  //Adding the new todo to the list
+    })
+  };
+
+
   const editTodoItem = async (todo: any) => {
     console.log("Edited");
   };

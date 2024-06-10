@@ -12,3 +12,17 @@ query todoQuery {
   }
 }
 `;
+
+export const ADD_MUT = gql`
+mutation createTodo($TodoText: String) {
+  createTodo(data: { TodoText: $TodoText}) {
+    data {
+      id
+      attributes {
+        TodoText
+        createdAt
+      }
+    }
+  }
+}
+`
