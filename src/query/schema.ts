@@ -26,3 +26,17 @@ mutation createTodo($TodoText: String) {
   }
 }
 `
+
+export const UPDATE_MUT = gql`
+  mutation updateTodo($id: ID!, $TodoText: String!) {
+    updateTodo(id: $id, data: { TodoText: $TodoText }) {
+      data {
+        id
+        attributes {
+          TodoText
+          createdAt
+        }
+      }
+    }
+  }
+`;

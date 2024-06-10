@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import AddTodo from "@/containers/AddTodo";
 import TodoList from "@/containers/TodoList";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_MUT, GET_QUERY } from "@/query/schema";
+import { ADD_MUT, GET_QUERY, UPDATE_MUT } from "@/query/schema";
 
 export default function Home() {
   const [todos, setTodos] = useState<[]>([]);
   const [createTodo] = useMutation(ADD_MUT)
+  const [updateTodo] = useMutation(UPDATE_MUT)
   const { loading, error, data } = useQuery(GET_QUERY, {
     fetchPolicy: "no-cache",
   }); //Fetching all todos
@@ -33,8 +34,29 @@ export default function Home() {
 
 
   const editTodoItem = async (todo: any) => {
-    console.log("Edited");
+    const newTodoText = prompt("Enter new todo text or description:");
+    if (newTodoText != null) {
+      await updateTodo({
+        //updating the todo
+        variables: {
+          id: todo.id,
+          TodoText: newTodoText,
+        },
+      }).then(({ data }: any) => {
+        const moddedTodos: any = todos.map((_todo: any) => {
+          if (_todo.id === todo.id) {
+            return data?.updateTodo?.data;
+          } else {
+            return _todo;
+          }
+        });
+        setTodos(moddedTodos);
+      });
+    }
   };
+
+
+
   const deleteTodoItem = async (todo: any) => {
     console.log("Deleted");
   };
